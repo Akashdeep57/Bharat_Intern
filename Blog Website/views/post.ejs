@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post.title %></title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <header>
+        <h1><%= post.title %></h1>
+        <nav>
+            <a href="/">Home</a>
+            <% if (user) { %>
+                <a href="/posts/create">Create New Post</a>
+                <a href="/auth/logout">Logout</a>
+            <% } else { %>
+                <a href="/auth/login">Login</a>
+                <a href="/auth/register">Register</a>
+            <% } %>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <p><%= post.body %></p>
+            <% if (user && post.author.equals(user._id)) { %>
+                <div class="post-actions">
+                    <a href="/posts/edit/<%= post._id %>" class="btn">Edit</a>
+                    <form action="/posts/delete/<%= post._id %>" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            <% } %>
+        </article>
+    </main>
+</body>
+</html>
